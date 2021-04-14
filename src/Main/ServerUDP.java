@@ -6,30 +6,45 @@ import java.io.*;
 public class ServerUDP 
 {
 
-	private final static int serverPort = 5555;
-	public static void main(String argv[]) 
-	{
+	 /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) throws Exception {
 
-		Scanner lector = new Scanner(System.in);	
-		System.out.println("Digite el archivo que quiere enviar");
-		int archivo =Integer.parseInt(lector.nextLine())  ;
-		String ruta="";
-		if(archivo==1)
-		{
-			ruta="data/archivo1.txt";
-		}
-		else 
-		{
-			ruta="data/archivo2.txt";
-		}			
-		System.out.println("Digite la cantidad de clientes que recibiran el archivo");
-		int cantidad =Integer.parseInt(lector.nextLine());
-		lector.close();
-		for (int i = 0; i < cantidad; i++) 
-		{
-			ServerThread newThread=new ServerThread(i,ruta,archivo, serverPort+i,cantidad);
-			newThread.start();
-		}
+        int port = 8080;
+        Scanner sc = new Scanner(System.in);
+        DatagramSocket ds = new DatagramSocket();
+        DatagramPacket outdata = null;
+        DatagramPacket indata = null;
+        byte[] senddata, receivedata;
+        InetAddress address = InetAddress.getLocalHost();
 
-	}
+        int size=1024;
+        String ruta="data/archivo1.txt";
+        File f1=new File(ruta);
+        double numPack=Math.ceil(((int)f1.length())/size);
+        String hello = String.valueOf(numPack);
+        System.out.println(hello);
+        senddata = hello.getBytes();
+        outdata = new DatagramPacket(senddata, senddata.length, address, port);
+        ds.send(outdata);  
+        
+		FileReader fileReader=new FileReader(f1);
+		BufferedReader br=new BufferedReader(fileReader);
+		StringBuilder sb1=new StringBuilder();
+
+		String line;
+		while((line=br.readLine())!=null)
+		{
+			sb1.append(line);
+			sb1.append("\n");
+		}
+		System.out.println(sb1.toString());
+		
+		byte[] senttoserver=sb1.toString().getBytes();
+		DatagramPacket p2=new DatagramPacket(senttoserver,senttoserver.length, address, port);
+		ds.send(p2);
+		ds.close();
+        
+    }
 }
