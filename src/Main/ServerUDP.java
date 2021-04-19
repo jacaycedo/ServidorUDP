@@ -74,6 +74,14 @@ public class ServerUDP extends Thread
 			writer.println("Id Cliente al que se realizo transferencia: "+id);
 			writer.println("Hash enviado: "+hash);
 			writer.close();
+			System.out.println("--------------------");
+			System.out.println(fileSize);
+			System.out.println(tiempoTransferencia);
+			System.out.println(id);
+			System.out.println(port);
+			System.out.println("--------------------");
+			
+			
 
 			bis.close();
 			ds.close();

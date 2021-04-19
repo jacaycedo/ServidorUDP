@@ -93,6 +93,7 @@ public class ClienteUDP extends Thread{
 
 			}
 			File f = new File("ArchivosRecibidos/prueba1+\"+id+\".txt");
+			
 			String hash = cifra.getFileChecksum("ArchivosRecibidos/prueba1+"+id+".txt");
 			System.out.println("Recibido " + hashRecibido);
 			System.out.println("Generado "+ hash);
@@ -113,6 +114,12 @@ public class ClienteUDP extends Thread{
 			writer.println("Hash recibido: " + hash);
 			System.out.println("Client "+ (id)+ " Received File");
 			writer.close(); 
+			System.out.println("--------------------");
+			System.out.println(f.length());
+			System.out.println(tiempoTransferencia);
+			System.out.println("Client "+ (id)+ " Received File");
+			System.out.println(port);
+			System.out.println("--------------------");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
