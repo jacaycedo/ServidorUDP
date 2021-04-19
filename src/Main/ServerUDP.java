@@ -35,7 +35,7 @@ public class ServerUDP extends Thread
 			DatagramPacket outdata = null;
 			DatagramPacket indata = null;
 			byte[] senddata, receivedata;
-			InetAddress address = InetAddress.getByName("192.168.1.57");
+			InetAddress address = InetAddress.getByName("192.168.1.254");
 			int size=1024;
 			
 			File f1=new File(ruta);

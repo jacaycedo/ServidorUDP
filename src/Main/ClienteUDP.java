@@ -44,11 +44,15 @@ public class ClienteUDP extends Thread{
 			Timer timer = new Timer();
 			double numPack = 0;
 			long startTime = System.currentTimeMillis();
+			
 			while (true && !socket.isClosed()) {
+				
 				receivedata = new byte[1000];
 				in = new DatagramPacket(receivedata, receivedata.length);
 				try 
 				{
+					System.out.println("socket funciona");
+					System.out.println(in);
 					socket.receive(in);
 					timer.schedule(new TimeOutTask(timer, this), 10000);
 				}
@@ -57,10 +61,14 @@ public class ClienteUDP extends Thread{
 					System.out.println("El socket se cerro debido a inactividad");
 				}
 				String f = new String(in.getData());
+				System.out.println(f);
 				numPack=Double.parseDouble(f);
 				startTime = System.currentTimeMillis();
-				FileOutputStream  fo=new FileOutputStream("ArchivosRecibidos/prueba1+"+id+".txt");   
+				FileOutputStream  fo=new FileOutputStream("ArchivosRecibidos/prueba1+"+id+".txt"); 
+				System.out.println("empezando for");
 				for (double i = 0; i < numPack; i++) {
+					System.out.println("estoy dentro del for");
+					System.out.println(i);
 					timer.cancel();
 					timer = new Timer();
 					timer.schedule(new TimeOutTask(timer, this), 10000);
@@ -79,7 +87,7 @@ public class ClienteUDP extends Thread{
 					System.arraycopy(inData.getData(), inData.getOffset(), data, 0, inData.getLength());
 					fo.write(data);
 				}
-				
+				System.out.println("cerre");
 				socket.close();
 				fo.close();
 
@@ -98,6 +106,7 @@ public class ClienteUDP extends Thread{
 			writer.println("Nombre Archivo: "+ "prueba1"+id+".txt");
 			writer.println("Tamaño Archivo: "+f.length()+"bytes");
 			writer.println("Cantidad de Paquetes: "+numPack);
+			System.out.println(numPack);
 			writer.println("Tiempo Transferencia: "+tiempoTransferencia+"ms");
 			writer.println("Id Cliente al que se realizo transferencia: "+id);
 			writer.println("Estado de transferencia: " + 200);
@@ -123,10 +132,12 @@ public class ClienteUDP extends Thread{
 		String hash = "";
 		try 
 		{
-			Socket s = new Socket("192.168.1.255", port);
+			Socket s = new Socket("192.168.1.62", port);
+			System.out.println(port);
 			in = new DataInputStream(s.getInputStream());
 			out = new DataOutputStream(s.getOutputStream());
 			hash = in.readUTF();
+			System.out.println(hash);
 			s.close();
 			in.close();
 			out.close();
