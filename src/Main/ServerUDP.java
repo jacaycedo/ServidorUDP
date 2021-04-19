@@ -93,6 +93,7 @@ public class ServerUDP extends Thread
 			hash = cifra.getFileChecksum(ruta);
 			ServerSocket s = new ServerSocket(port);
 			Socket sc = s.accept();
+			System.out.println(sc.getInetAddress());
 			in = new DataInputStream(sc.getInputStream());
 			out = new DataOutputStream(sc.getOutputStream());
 			out.writeUTF(hash);
