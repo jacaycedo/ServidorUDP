@@ -1,0 +1,7 @@
+Nombre Archivo: prueba12.txt
+Tamaño Archivo: 0bytes
+Cantidad de Paquetes: 102400.0
+Tiempo Transferencia: 16922ms
+Id Cliente al que se realizo transferencia: 2
+Estado de transferencia: 200
+Hash recibido: 732532cc4b5ee30ee139a4c0c5b5ae4e
