@@ -123,7 +123,7 @@ public class ClienteUDP extends Thread{
 		String hash = "";
 		try 
 		{
-			Socket s = new Socket("127.0.0.1", port);
+			Socket s = new Socket("172.24.42.88", port);
 			in = new DataInputStream(s.getInputStream());
 			out = new DataOutputStream(s.getOutputStream());
 			hash = in.readUTF();
